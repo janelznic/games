@@ -20,11 +20,25 @@ You will work with API `https://www.cheapshark.com/api/`. Lucky for you somebody
 - Endpoint GET `/calls` has to be private, make it so, it's up to you what method will you choose.
 - Tests are up to you, if you will provide them, you will get in front of other candidates.
 
-## Installation and run
+## Scripts
 
+### Installation
 ```bash
 $ npm install
 ```
+
+### Run as a server
 ```bash
 $ npm start
+```
+
+### Run tests
+```bash
+$ npm tests
+```
+
+### DEV server
+Checking files for changes and automatic restart the application:
+```bash
+$ npm run start:dev
 ```
