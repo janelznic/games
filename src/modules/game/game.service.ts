@@ -1,3 +1,4 @@
+import AppConfig from '../../consts/app.config';
 import { Injectable } from '@nestjs/common';
 import Axios, { AxiosResponse } from 'axios';
 import { ICheapSharkResponse } from './interfaces/cheapSharkResponse.interface';
@@ -14,7 +15,8 @@ export class GameService {
   }
 
   private async fetchGameInfo(): Promise<AxiosResponse> {
-    const res = await Axios.get('http://www.cheapshark.com/api/1.0/deals?storeID=1&desc=0&title=grand%20theft%20auto&pageSize=20');
+    const api = AppConfig.api;
+    const res = await Axios.get(`${api.baseUrl}/${api.version}/deals?storeID=1&desc=0&title=grand%20theft%20auto&pageSize=20`);
     if (res.status === 200) {
       return res;
     }
