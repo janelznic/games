@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import db from '../../db/mysql/mysql';
 
-const CallModel = db.define('call', {
+const CallModel: any = db.define('call', {
   id: {
     type: Sequelize.BIGINT(20),
     autoIncrement: true,
@@ -12,7 +12,7 @@ const CallModel = db.define('call', {
   called_at: {
     type: Sequelize.DATE,
     allowNull: false,
-    defaultValue: '0000-00-00 00:00:00',
+    defaultValue: Sequelize.NOW,
   },
 }, {
   underscored: true,

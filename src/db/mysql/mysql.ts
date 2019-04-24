@@ -9,7 +9,7 @@ const db = new Sequelize(
     host: CONFIG.DB_HOST,
     dialect: CONFIG.DB_DIALECT,
     operatorsAliases: false,
-  }
+  },
 );
 
 export default db;
