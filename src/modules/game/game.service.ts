@@ -36,39 +36,33 @@ export class GameService {
   }
 
   /**
-   * Fetch deal detail
-   * @param id Deal ID
-   */
-  private async fetchDealDetail(id: string): Promise<ICheapSharkDeal> {
-    const res = await Axios.get(`${this.apiUrl}/deals`, {
-      data: {
-        params: { id },
-      },
-    });
-
-    if (res.status === 200) {
-      return res.data;
-    }
-    throw new Error('Error fetching deal detail');
-  }
-
-  /**
    * Fetch list of deals
    * @param searchQuery Name of the game
    * @param searchParams Query parameters
    */
   private async fetchDeals(searchQuery: string, searchParams?: GameSearchParams): Promise<ICheapSharkGame[]> {
-    const res = await Axios.get(`${this.apiUrl}/deals`, {
-      data: {
-        params: {
-          ...searchParams,
-          title: encodeURIComponent(searchQuery),
-        },
-      },
-    });
+    const res = await Axios.get(
+      `${this.apiUrl}/deals?title=${encodeURI(searchQuery)}`
+       + `&storeID=${searchParams.storeID}`
+       + `&desc=${searchParams.desc}`
+       + `&pageSize=${searchParams.pageSize}`,
+    );
     if (res.status === 200) {
       return res.data;
     }
     throw new Error('Error fetching deals data');
+  }
+
+  /**
+   * Fetch deal detail
+   * @param id Deal ID
+   */
+  private async fetchDealDetail(id: string): Promise<ICheapSharkDeal> {
+    const res = await Axios.get(`${this.apiUrl}/deals?id=${id}`);
+
+    if (res.status === 200) {
+      return res.data;
+    }
+    throw new Error('Error fetching deal detail');
   }
 }
