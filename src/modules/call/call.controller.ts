@@ -11,7 +11,7 @@ export class CallController {
   @Get('/')
   async getCallsOnMonday() {
     try {
-      return await this.callService.getCalls('Mon');
+      return await this.callService.getCalls({dayInWeek: 'Mon'});
     } catch (e) {
       throw Error(e);
     }
