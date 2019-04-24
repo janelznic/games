@@ -1,4 +1,4 @@
-export interface ICheapSharkResponse {
+export interface ICheapSharkGame {
   readonly internalName: string;
   readonly title: string;
   readonly metacriticLink: string;
