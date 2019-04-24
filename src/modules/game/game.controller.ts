@@ -11,7 +11,7 @@ export class GameController {
   @Get('/')
   async getGameInfo() {
     try {
-      return await this.gameService.getGames();
+      return await this.gameService.getGames('grand theft auto', { storeID: 1, desc: 0, pageSize: 20 });
     } catch (e) {
       throw Error(e);
     }
