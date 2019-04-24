@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Call, GetCallsOptions } from './interfaces/call.interface';
 import CallModel from './call.model';
 import { Sequelize } from 'sequelize';
-import * as daysOfWeek from './call.consts';
+import { daysOfWeek } from './call.consts';
 
 @Injectable()
 export class CallService {
@@ -18,9 +18,16 @@ export class CallService {
 
   public getCalls = async (opt?: GetCallsOptions): Promise<any> => {
     try {
+      let where: any = null;
+      if (opt && opt.dayInWeek) {
+        if (daysOfWeek.hasOwnProperty(opt.dayInWeek)) {
+          where = Sequelize.where(Sequelize.fn('WEEKDAY', Sequelize.col('called_at')), daysOfWeek[opt.dayInWeek]);
+        } else {
+          throw new Error(`Specified day ${opt.dayInWeek} is not included in daysOfWeek constant`);
+        }
+      }
       const calls: Call[] = CallModel.findAll({
-        where: opt && opt.dayInWeek ? Sequelize.where(Sequelize.fn('WEEKDAY', Sequelize.col('called_at')), 0) : null,
-        order: [['id', 'ASC']],
+        where, order: [['id', 'ASC']],
       }).then(call => {
         return call;
       });
